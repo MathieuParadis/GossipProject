@@ -72,15 +72,24 @@
                     <%= link_to "Modifier le potin", edit_gossip_path, class: "btn btn-info text-light"%>
                     <%= link_to "Supprimer le potin", gossip_path(@gossip.id), method: :delete, class: "btn btn-danger text-light" %><br/>
                     <%= link_to "Ajouter un commentaire", new_gossip_comment_path(@gossip.id), class: "btn btn-dark text-light mt-2" %>
+                    
+                    <% if @like != nil %>
+                    <%= link_to "DisLiker le potin", gossip_like_path(@gossip.id, @like.id), method: :delete, class: "btn btn-info text-light mt-2" %></h6>
+                    <% else %>
                     <%= link_to "Liker le potin", gossip_likes_path(@gossip.id), method: :post, class: "btn btn-warning mt-2" %>
+                    <% end %>
                 </p>
             </div>
 
             <% else %>
             <div>
                 <p>
-                    <%= link_to "Ajouter un commentaire", new_gossip_comment_path(@gossip.id), class: "btn btn-dark text-light" %>
-                    <%= link_to "Liker le potin", gossip_likes_path(@gossip.id), method: :post, class: "btn btn-warning text-light" %>
+                    <%= link_to "Ajouter un commentaire", new_gossip_comment_path(@gossip.id), class: "btn btn-dark text-light mt-2" %>
+                    <% if @like != nil %>
+                    <%= link_to "DisLiker le potin", gossip_like_path(@gossip.id, @like.id), method: :delete, class: "btn btn-info text-light mt-2" %></h6>
+                    <% else %>
+                    <%= link_to "Liker le potin", gossip_likes_path(@gossip.id), method: :post, class: "btn btn-warning mt-2" %>
+                    <% end %>
                 </p>
             </div>
             <% end %>
@@ -99,12 +108,10 @@
                     <%= link_to "Editer le com", edit_gossip_comment_path(@gossip.id, com.id), class: "btn btn-info text-light" %>
                     <%= link_to "Supprimer le com", gossip_comment_path(@gossip.id, com.id), method: :delete, class: "btn btn-danger text-light" %>
                 </p>
-                                <% end %>
-
-                            <% end %>
+                <% end %>
+            <% end %>
 
             </div>
-            
 
 
 

@@ -26,24 +26,11 @@ class LikesController < ApplicationController
 
 
   def destroy
-    # user = User.find_by(id: session[:user_id])
-    # @gossip = Gossip.find(params[:gossip_id])
-    # @user_likes = Like.where(gossip: @gossip, user: user)
-    # @like = 
-
-    # unless current_user == user && @user_likes.count == 1
-    #   flash[:danger] = "Action impossible"
-    #   redirect_to @gossip
-    # end
-    
-    # @like = @user_likes[0]
-    # @like.destroy
-
-    user = User.find_by(id: session[:user_id])
     @gossip = Gossip.find(params[:gossip_id])
+    user = User.find_by(id: session[:user_id])
     @user_likes = Like.where(gossip: @gossip, user: user)
-  
-    # @like = 3
+    @like = @user_likes[0]
+ 
 
     if current_user == user && @user_likes.count == 1
       @like.destroy # essaie de sauvegarder en base @gossip
@@ -56,14 +43,6 @@ class LikesController < ApplicationController
       flash.now[:notice] = "Action impossible"
       redirect_to @gossip
     end
-
-    # if @like.destroy
-    #   flash[:Notice] = "Like supprimé avec succès"
-    #   redirect_to @gossip
-    # else
-    #   flash.now[:notice] = "did not work"
-    #   render @gossip
-    # end
   
   end
 

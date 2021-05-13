@@ -19,6 +19,9 @@ class GossipsController < ApplicationController
     @comments = Comment.all
     
     @gossip = @gossips.find(@gossip_id)
+    user = User.find_by(id: session[:user_id])
+    p @user_likes = Like.where(gossip: @gossip, user: user)
+    @like = @user_likes[0]
     
   end
 
