@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GossipProject</title>
+
+     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+  <style>
+    body {
+        background-image: url('https://media.istockphoto.com/vectors/yellow-and-orange-retro-comic-background-vector-illustration-vector-id1048223560?k=6&m=1048223560&s=612x612&w=0&h=M2BkRK_uV8brJgDX2TfTFNq2UwP_h-ldn33clRtJaVg=');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+    .carte {
+        background-color: #FF99D1;
+        text-align: center;
+        margin-left: 35%;
+        margin-right: 35%;
+        margin-top: 5%;
+        padding: 2%;
+        padding-top: 2%;
+        border-radius: 20px;
+    }
+
+    .title {
+        font-size: 60px;
+        color: white;
+    }
+  </style>    
+
+  </head>
+
+  <body>
+    <%= yield %>
+
+<div class = "mt-5 mx-3">
+    
+
+    <div>
+        <% flash.each do |msg| %>
+        <div class="alert alert-success">
+            <%= msg.join(": ").html_safe %>
+                
+        </div>
+        <% end %>
+        
+        <div class="carte">
+            <div>
+                <h1 class = "mb-3 title">Gossip nº<%=@gossip_id%></h1>
+                <p>
+                    <span class = "font-weight-bold">Titre</span> : <%=@gossip.title%></br>
+                    <span class = "font-weight-bold">Contenu</span> : <%=@gossip.content%></br>
+                    <span class = "font-weight-bold">Auteur</span> : <%=@gossip.user.first_name%> <%=@gossip.user.last_name%> 
+                    <span class = "font-weight-bold">de</span> <%= link_to @gossip.user.city.name, city_path(@gossip.user.city.id) %></br>
+                    <span class = "font-weight-bold text-primary"><%= @gossip.likes.count %> <%= (@gossip.likes.count) == 1 ? 'Like' : 'Likes'%></span></br>
+                </p>
+                <p>
+                    <span class = "font-weight-bold"> Potin créé le</span> : <%=@gossip.created_at%> <br />
+                    <span class = "font-weight-bold"> Potin mis à jour le</span> : <%=@gossip.updated_at%> 
+                </p>
+            </div>
+
+            <% if current_user == @gossip.user %>
+            <div>
+                <p>
+                    <%= link_to "Modifier le potin", edit_gossip_path, class: "btn btn-info text-light"%>
+                    <%= link_to "Supprimer le potin", gossip_path(@gossip.id), method: :delete, class: "btn btn-danger text-light" %><br/>
+                    <%= link_to "Ajouter un commentaire", new_gossip_comment_path(@gossip.id), class: "btn btn-dark text-light mt-2" %>
+                    <%= link_to "Liker le potin", gossip_likes_path(@gossip.id), method: :post, class: "btn btn-warning mt-2" %>
+                </p>
+            </div>
+
+            <% else %>
+            <div>
+                <p>
+                    <%= link_to "Ajouter un commentaire", new_gossip_comment_path(@gossip.id), class: "btn btn-dark text-light" %>
+                    <%= link_to "Liker le potin", gossip_likes_path(@gossip.id), method: :post, class: "btn btn-warning text-light" %>
+                </p>
+            </div>
+            <% end %>
+            <div>
+                <h5><%= link_to "A propos de l'auteur", user_path(@gossip.user.id)%></h5>
+            </div>
+
+            <div>
+                <h3 class = "font-weight-bold mb-3 mt-4 text-white "> Commentaires :</h3>  
+                <p>
+                    <% @comments.where(gossip: @gossip).map do |com| %>
+                    <%current_user == com.user ? com.user.first_name = "Tu" : com.user.first_name %>
+                    <span class="font-weight-bold">></span> <%= com.user.first_name%> as commenté "<span class="font-weight-bold"><%= com.content%></span>" le <%= com.updated_at%></>
+                </p>
+                <% if current_user == com.user %>
+                    <%= link_to "Editer le com", edit_gossip_comment_path(@gossip.id, com.id), class: "btn btn-info text-light" %>
+                    <%= link_to "Supprimer le com", gossip_comment_path(@gossip.id, com.id), method: :delete, class: "btn btn-danger text-light" %>
+                </p>
+                                <% end %>
+
+                            <% end %>
+
+            </div>
+            
+
+
+
+
+
+
+        </div>
+
+
+    </div>
+</div>
+
+    <%# <script>
+
+    document.body.style.background = "#"+((1<<24)*Math.random()|0).toString(16);
+    </script> %>
+
+
+  </body>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <%= javascript_include_tag 'application', async: Rails.env.production?, :cache => 'cached/all' %>
+
+</html>
+
+
+

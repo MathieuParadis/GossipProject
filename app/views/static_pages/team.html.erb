@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GossipProject</title>
+
+     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+  <style>
+    body {
+        background-image: url('https://media.istockphoto.com/vectors/vector-superhero-team-silhouette-hovering-midair-with-moon-on-the-vector-id930378882?k=6&m=930378882&s=612x612&w=0&h=xHks5UAN6RXYZUtoB_r3Jq2kMx8q_rYEaPZ1GdeynQs=');
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+    }
+
+    #connection {
+        background-color: #54FF2F;
+        text-align: center;
+        margin-left: 30%;
+        margin-right: 30%;
+        margin-top: 4%;
+        padding: 3%;
+        padding-top: 2%;
+        border-radius: 20px;
+    }
+
+    #title {
+        font-size: 60px;
+    }
+
+    #heros {
+        font-size: 20px;
+    }
+
+  </style>    
+
+  </head>
+
+  <body>
+    <%= yield %>
+
+<div class = "mt-5 mx-3">
+    
+
+    <div>
+        <% flash.each do |msg| %>
+        <div class="alert alert-danger">
+            <%= msg.join(": ").html_safe %>
+                
+        </div>
+        <% end %>
+        
+        <div id="connection">
+            <div>
+                <h1 class="mb-2 pb-4" id="title">Voici l'equipe de fous</h1>
+            <div>
+            <div id="heros">
+                Mathieu<br/>Gus<br/>Archie<br/>Pedro
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+    <%# <script>
+
+    document.body.style.background = "#"+((1<<24)*Math.random()|0).toString(16);
+    </script> %>
+
+
+  </body>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <%= javascript_include_tag 'application', async: Rails.env.production?, :cache => 'cached/all' %>
+
+</html>
+

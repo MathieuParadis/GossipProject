@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GossipProject</title>
+
+     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+  <style>
+    body {
+        background-image: url('https://media.istockphoto.com/vectors/bright-pink-and-blue-versus-retro-comic-background-vector-id1150984736?k=6&m=1150984736&s=612x612&w=0&h=kecGH2luUl_P2LQLs4zbbPSs7zyOyzE0l1k9CwjlBWs=');
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+    }
+
+    #connection {
+        background-color: #FFAB00;
+        text-align: center;
+        margin-left: 35%;
+        margin-right: 35%;
+        margin-top: 15%;
+        padding: 5%;
+        border-radius: 20px;
+    }
+
+        #title {
+        font-size: 60px;
+        color: white;
+    }
+  </style>    
+
+  </head>
+
+  <body>
+    <%= yield %>
+
+<div class = "mt-5 mx-3">
+    <div>
+        <% flash.each do |msg| %>
+        <div class="alert alert-success">
+            <%= msg.join(": ").html_safe %>
+                
+        </div>
+        <% end %>
+        
+        <div id="connection">
+            <div>
+                <h1 class="mb-4 pb-4" id="title">Se connecter</h1>
+            <div>
+
+            <%= form_tag url_for(action: 'create'), method: "post" do %>
+
+                <h4><%= label_tag 'Email' %></h4>
+                <%= text_field_tag 'user_email' %>
+                <br /> <br />
+
+                <h4><%= label_tag 'Mot de passe' %></h4>
+                <%= password_field_tag 'user_password' %>
+                <br /> <br /> <br />
+
+                <%= submit_tag("Connection", :class=>"btn btn-danger") %>
+            <% end %>
+        </div>
+
+    </div>
+</div>
+
+    <%# <script>
+
+    document.body.style.background = "#"+((1<<24)*Math.random()|0).toString(16);
+    </script> %>
+
+
+  </body>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <%= javascript_include_tag 'application', async: Rails.env.production?, :cache => 'cached/all' %>
+
+</html>

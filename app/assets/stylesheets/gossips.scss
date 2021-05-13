@@ -1,0 +1,23 @@
+// Place all the styles related to the gossips controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 1rem;
+  display: grid;
+  place-items: center;
+  font-family: system-ui;
+}
+h1 {
+  background: white;
+  padding: 1rem 2rem;
+  text-align: center;
+}
+span {
+  display: block;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: normal;
+  font-family: monospace;
+}

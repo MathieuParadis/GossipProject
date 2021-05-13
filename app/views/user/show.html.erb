@@ -1,0 +1,13 @@
+<div class = "mt-5 mx-3">
+    <h1>A propos de <%=@user.first_name%></h1>
+
+    <ul>
+        <li>Prénom : <%=@user.first_name%></li>
+        <li>Nom : <%=@user.last_name%></li>
+        <li>age : <%=@user.age%></li>
+        <li>bio : <%=@user.description%></li>
+        <li>email : <%=@user.email%></li>
+        <li>Réside à : <%=@user.city.name%></li>
+        
+    </ul>
+</div>
