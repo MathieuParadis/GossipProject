@@ -18,8 +18,8 @@ class UsersController < ApplicationController
     puts params
     puts "$" * 60
 
-    @city = City.first
-    @user = User.new(first_name: params[:user_first_name], last_name: params[:user_last_name], age: params[:user_age], email: params[:user_email], password: params[:user_password], password_confirmation: params[:user_password_confirmation], city: @city)
+    city = City.create(name: "Grenoble", zip_code: "38000")
+    @user = User.new(first_name: params[:user_first_name], last_name: params[:user_last_name], age: params[:user_age], email: params[:user_email], password: params[:user_password], password_confirmation: params[:user_password_confirmation], city: city)
 
     if @user.save 
       # si ça marche, il redirige vers la page d'index du site

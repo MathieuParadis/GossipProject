@@ -9,5 +9,11 @@ class CitiesController < ApplicationController
     @city = @cities.find(@city_id)
   end
 
+  def new
+  end
+
+  def create
+  end
+
 end
 
